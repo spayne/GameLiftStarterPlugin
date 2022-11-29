@@ -13,7 +13,9 @@ The following will take you from start to finish to building and deploy a UE 5.1
 1. Starting with a source build of Unreal engine
 2. Create a new **third person template** C++ project
 3. Have an AWS account setup and can run the AWS cli using a [Named profile](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-profiles.html)
+    * to check, run: aws gamelift list-fleets --profile [NamedProfileName] --region us-west-2
 4. Install [boto3](https://boto3.amazonaws.com/v1/documentation/api/latest/guide/quickstart.html)
+    * to check, run: pip show module boto3
 
 ## Steps
 1. Create your project Plugins folder at the same level as Source and clone the following into it: 
@@ -29,11 +31,11 @@ git clone https://github.com/spayne/AWSGameLiftServerSDK GameLiftServerSDK
 </p>
 
 4. Follow the instructions on [Setting Up Dedicated Servers](https://docs.unrealengine.com/4.27/en-US/InteractiveExperiences/Networking/HowTo/DedicatedServers/).  Once you have finished that you will have:
- * the server target,
- * a packaged server build (in the Packaged folder if you used their example)
- * a ProjectNameServer.exe,
- * an Entry Map that Opens 127.0.0.1 on BeginPlay
- * a Server Default map (e.g. Third Person Example Map)
+    * the server target,
+    * a packaged server build (in the Packaged folder if you used their example)
+    * a ProjectNameServer.exe,
+    * an Entry Map that Opens 127.0.0.1 on BeginPlay
+    * a Server Default map (e.g. Third Person Example Map)
 
 5. We will now update your project to get the deploy to happen on GameLift servers:
 
