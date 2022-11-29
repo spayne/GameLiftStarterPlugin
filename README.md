@@ -54,7 +54,7 @@ git clone https://github.com/spayne/AWSGameLiftServerSDK GameLiftServerSDK
 <img width="200" src="Docs/NewLoginOptions.png?raw=true" alt="New Login Options"/>
 </p>
 
-10. Open the third person map and change the game mode to GameLiftGameMode
+10. Open the third person map and change the game mode to GameLiftGameMode.  **Remember to save the map***
 <p align="center">
 <img width="250" src="Docs/SetGameModeOfThirdPersonMap.png?raw=true" alt="Set Game Mode of the Third Person map"/>
 </p>
