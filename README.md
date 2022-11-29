@@ -59,7 +59,7 @@ git clone https://github.com/spayne/AWSGameLiftServerSDK GameLiftServerSDK
 <img width="250" src="Docs/SetGameModeOfThirdPersonMap.png?raw=true" alt="Set Game Mode of the Third Person map"/>
 </p>
 
-11. Copy the Scripts/install.bat file to the root of your WindowsServer package directory.
+11. Copy the Plugins/GameLiftStarter/Scripts/install.bat file to the root of your WindowsServer package directory.
 
 12. From within the editor, rebuild the server package
 
