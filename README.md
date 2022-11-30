@@ -104,5 +104,5 @@ git clone https://github.com/spayne/AWSGameLiftServerSDK GameLiftServerSDK
 <img width="400" src="Docs/PlayerSessions.png?raw=true" alt="Player Sessions"/>
 </p>
 
-## Tear it down
+## Step 7 - Tear it down
 1. When you are done, remember to shutdown (Delete) all of the AWS service to avoid unnecessary usage charges.
