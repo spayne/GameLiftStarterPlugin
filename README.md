@@ -68,7 +68,7 @@ git clone https://github.com/spayne/AWSGameLiftServerSDK GameLiftServerSDK
 
 6. Copy the Plugins/GameLiftStarter/Scripts/install.bat file to the root of your WindowsServer package directory.
 
-7. From within the editor, rebuild the server package
+7. From within the editor, re-package the server package
 
 8. Run the Fleet Manager and click on "Check" to check the Dedicated Server is Packaged.  Confirm that the Ready column shows OK:
 <p align="center">
