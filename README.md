@@ -14,7 +14,7 @@ The following will take you from start to finish to building and deploy a UE 5.1
 2. Have an AWS account setup and can run the AWS cli using a [Named profile](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-profiles.html)
     * to check, run: aws gamelift list-fleets --profile [NamedProfileName] --region us-west-2
 3. Install [boto3](https://boto3.amazonaws.com/v1/documentation/api/latest/guide/quickstart.html)
-    * to check, run: pip show module boto3
+    * to check, run: pip show boto3
 
 ## Step 1 - Create a project
 1. Create a new **third person template** C++ project
