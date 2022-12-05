@@ -33,7 +33,7 @@ OK_STRING="...ok"
 fleet_description = \
     '<Header>GameLift Starter Script</>\n' \
     '<a id=\"source\" href=\"[FILE_PATH]" style=\"Hyperlink\">aws_backend.py</>\n\n' \
-    'This script allows you to check, install and tear down the backend design described in the video series <a id=\"browser\" href=\"https://www.youtube.com/playlist?list=PLuGWzrvNze7LEn4db8h3Jl325-asqqgP2\" style=\"Hyperlink\">Building Game on AWS: GameLift & UE4</>, ' 
+    'This script allows you to check, install and tear down the backend design described in the video series <a id=\"browser\" href=\"https://www.youtube.com/playlist?list=PLuGWzrvNze7LEn4db8h3Jl325-asqqgP2\" style=\"Hyperlink\">Building Games on AWS: GameLift & UE4</>, ' 
     
 
 fleet_description = fleet_description.replace("[FILE_PATH]", __file__)
