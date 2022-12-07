@@ -7,7 +7,7 @@ This plugin makes it easier to to setup and tear down GameLift deployments withi
 The backend design is based on Amazon's video series [Building Games on AWS: Amazon GameLift & UE4](https://www.youtube.com/playlist?list=PLuGWzrvNze7LEn4db8h3Jl325-asqqgP2).
 
 # How to deploy a game server with the Game Lift Starter
-The following will take you from start to finish to building and deploy a UE 5.1 GameLift server.
+The following will take you from start to finish to building and deploy a UE 5.1 GameLift server.  These steps are also demonstrated in the YouTube video [Demo: How to get from Zero to Gamelift Multiplayer project in UE5.1](https://www.youtube.com/watch?v=3AYDX9jRGl8).
 
 ## Prerequisites
 1. Starting with a source [build](https://github.com/EpicGames/UnrealEngine) of Unreal engine
