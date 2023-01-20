@@ -107,3 +107,6 @@ git clone https://github.com/spayne/AWSGameLiftServerSDK GameLiftServerSDK
 
 ## Step 7 - Tear down the backend
 1. When you are done, remember to shutdown all of the AWS service to avoid unnecessary usage charges.
+
+## Next Steps - WSL2
+Now that you have a working server on Windows you could try cross compiling and testing on Linux and WSL.  My notes on how to do this are [linux_server_build.md](Docs/linux_server_build.md)
