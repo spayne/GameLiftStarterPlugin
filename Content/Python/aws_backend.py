@@ -26,7 +26,7 @@ import uuid
 from pathlib import Path
 import webbrowser
 import boto3
-from botocore.exceptions import ClientError
+from botocore.exceptions import ClientError,ProfileNotFound
 
 OK_STRING="...ok"
 
@@ -283,25 +283,38 @@ def handle_request(part_queue, query_dict, verb):
 
 class AwsBackend:
     def __init__(self, backend_config):
-        self.session = boto3.Session(
+        try:
+            self.session = boto3.Session(
                 profile_name=backend_config["profile_name"],
                 region_name=backend_config["region_name"])
-        self.iam_client = self.session.client('iam')
-        self.gamelift_client = self.session.client('gamelift')
-        self.cognitoidp_client = self.session.client('cognito-idp')
-        self.lambda_client = self.session.client('lambda')
-        self.apigateway_client = self.session.client('apigateway')
-        self.sts_client = self.session.client('sts')
+        except ProfileNotFound:
+            log_error(f'AWSProfile {backend_config["profile_name"]} could not be found.  Check your Game Lift Starter Plugin settings')
+            return
+        except: 
+            log_exception("boto3.Session")
+
+        try:
+            self.iam_client = self.session.client('iam')
+            self.gamelift_client = self.session.client('gamelift')
+            self.cognitoidp_client = self.session.client('cognito-idp')
+            self.lambda_client = self.session.client('lambda')
+            self.apigateway_client = self.session.client('apigateway')
+            self.sts_client = self.session.client('sts')
+        except:
+            log_exception("")
 
     def __del__(self):
         #close services to avoid unclosed SSL warning logs
         # ref: https://github.com/boto/boto3/issues/454#issuecomment-1150557124
-        self.iam_client.close()
-        self.gamelift_client.close()
-        self.cognitoidp_client.close()
-        self.lambda_client.close()
-        self.apigateway_client.close()
-        self.sts_client.close()
+        try:
+            self.iam_client.close()
+            self.gamelift_client.close()
+            self.cognitoidp_client.close()
+            self.lambda_client.close()
+            self.apigateway_client.close()
+            self.sts_client.close()
+        except:
+            pass
 
     def log_missing_dependency(self, msg):
         log_info(" Missing: " + msg)
@@ -1220,7 +1233,7 @@ def process_delete_commands(backend, backend_config, commands):
         elif command == "rest_api":
             backend.delete_rest_api(backend_config)
         else:
-            log_warn("urecognized command" + command)
+            log_warn("unrecognized command" + command)
 
 
 def process_backend_config(backend_config):
