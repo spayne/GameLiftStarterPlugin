@@ -38,6 +38,7 @@ public class FleeteratorGameLiftStarterEditor : ModuleRules
 				"Engine",
 				"Slate",
 				"SlateCore",
+				"HTTP",
 				"FleetManagerModule",
 				// ... add private dependencies that you statically link with here ...	
 			}

@@ -5,6 +5,7 @@
 #include "ISettingsModule.h"
 #include "FleetFactory.h"
 #include "GameLiftStarterSettings.h"
+#include "GenericPlatform/GenericPlatformHttp.h"
 
 #define LOCTEXT_NAMESPACE "FFleeteratorGameLiftStarterEditor"
 
@@ -33,9 +34,9 @@ class GameLiftStarterParams : public IFleetTypeSpecificParams
 			*Settings->AWSProfile,
 			*Settings->AWSRegion,
 			*Settings->FleetPrefix,
-			*Settings->ServerPackageRoot,
-			*Settings->FleetLaunchPath,
-			*ProjectRoot
+			*FGenericPlatformHttp::UrlEncode(Settings->ServerPackageRoot),
+			*FGenericPlatformHttp::UrlEncode(Settings->FleetLaunchPath),
+			*FGenericPlatformHttp::UrlEncode(ProjectRoot)
 		);
 		return QueryString;
 	}
