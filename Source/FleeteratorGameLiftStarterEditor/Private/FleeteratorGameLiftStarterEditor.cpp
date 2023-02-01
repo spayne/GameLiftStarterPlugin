@@ -6,6 +6,7 @@
 #include "FleetFactory.h"
 #include "GameLiftStarterSettings.h"
 #include "GenericPlatform/GenericPlatformHttp.h"
+#include "Misc/MessageDialog.h"
 
 #define LOCTEXT_NAMESPACE "FFleeteratorGameLiftStarterEditor"
 
@@ -63,11 +64,43 @@ void FFleeteratorGameLiftStarterEditor::RegisterSettings()
 	}
 }
 
+
+// rule from aws pool subdomain prefix is ^[a-z0-9](?:[a-z0-9\-]{0,61}[a-z0-9])?
+// * so lowercase alpha numeric and no '-' prefix or suffix
+// * the aws_backend.py will also use the fleet prefix and add a 6 character "-login" suffix so the acceptable fleet prefix
+//   needs to be ^[a-z0-9](?:[a-z0-9\-]{0,56}
+// * but consider: who knows what other limits aws has and how it mixes with other suffixes
+// * so I'll just choose to only allow upto 32 characters for the fleet prefix:
+//   needs to be ^[a-z0-9](?:[a-z0-9\-]{0,31}
+static bool ValidateFleetPrefix(const FString& FleetPrefix)
+{
+	const FRegexPattern ValidFleetPrefixPatten(TEXT("^[a-z0-9][a-z0-9-]{0,31}$"));
+	FRegexMatcher Matcher(ValidFleetPrefixPatten, FleetPrefix);
+	bool bFindNext = Matcher.FindNext();
+	return bFindNext;
+}
+
+
 void FFleeteratorGameLiftStarterEditor::OnPropertyChanged(UObject* ObjectBeingModified, FPropertyChangedEvent& PropertyChangedEvent)
 {
 	if (UGameLiftStarterSettings* Settings = Cast<UGameLiftStarterSettings>(ObjectBeingModified))
 	{
-		// TODO - update the query string here instead?
+		FProperty* PropertyThatChanged = PropertyChangedEvent.Property;
+		static const FString FleetPrefix = TEXT("FleetPrefix");
+		if (PropertyThatChanged != nullptr && PropertyThatChanged->GetName() == FleetPrefix)
+		{
+			if (!ValidateFleetPrefix(Settings->FleetPrefix))
+			{
+				static FName NAME_FMErrors("FleetManagerPlugin");
+				FMessageLog SettingsError(NAME_FMErrors);
+				TSharedRef<FTokenizedMessage> Message = SettingsError.Error();
+
+				Message->AddToken(FTextToken::Create(LOCTEXT("InvalidFleetPrefix1", "The Fleet Prefix")));
+				Message->AddToken(FTextToken::Create(FText::FromString(Settings->FleetPrefix)));
+				Message->AddToken(FTextToken::Create(LOCTEXT("InvalidFleetPrefix2", "is invalid. Ensure you are using lowercase")));
+				SettingsError.Notify();
+			}
+		}
 	}
 }
 

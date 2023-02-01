@@ -261,7 +261,11 @@ def PopTwoOrBadRequest(queue):
 
 def handle_request(part_queue, query_dict, verb):
     resource = PopOneOrBadRequest(part_queue)
-    default_config=make_backend_config_from_dict(query_dict)
+    try: 
+        default_config=make_backend_config_from_dict(query_dict)
+    except:
+        log_exception("handle_request")
+        return 200, {"Overall Result": "Invalid Settings"}
     if resource == "metadata":
         return 200, fleet_metadata_json
     elif resource == "config":
@@ -1276,6 +1280,13 @@ def make_backend_config_from_dict(dict):
         args.append(param)
     return make_backend_config_from_args(args)
 
+
+def verify_backend_config(backend_config):
+    prefix = backend_config["prefix"]
+    regex = r'^[a-z0-9][a-z0-9-]{0,31}$'
+    if not re.match(regex, prefix):
+        raise Exception(f"Invalid fleet prefix {prefix}.  Check your project settings to ensure you are using lowercase")
+
 # return a dictionary that still needs to be  
 def make_backend_config_from_args(argv):
     '''return a backend_config'''
@@ -1419,6 +1430,8 @@ override default example:
         if type(value) == str:
             backend_config[key] = value.replace("[prefix]", prefix)
         log_debug(f"    {key}:{backend_config[key]}")
+
+    verify_backend_config(backend_config)
 
     return backend_config
 
