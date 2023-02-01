@@ -5,13 +5,13 @@
 #include "Json.h"
 #include "JsonUtilities.h"
 #include "Kismet/GameplayStatics.h"
-
+#include "Logging/LogMacros.h"
 
 UGameLiftOfflineMenuBase::UGameLiftOfflineMenuBase(const FObjectInitializer& ObjectInitializer)
 	: Super(ObjectInitializer)
 {
 	Http = &FHttpModule::Get();
-	ApiGatewayEndpoint = FString::Printf(TEXT("https://fic7p1w3bl.execute-api.us-west-2.amazonaws.com/testfleet-api-test-stage"));
+	ApiGatewayEndpoint = FString::Printf(TEXT("https://jt8dl27r6e.execute-api.us-west-2.amazonaws.com/froggy-api-test-stage"));
 	LoginURI = FString::Printf(TEXT("/login"));
 	StartSessionURI = FString::Printf(TEXT("/startsession"));
 }
@@ -26,6 +26,9 @@ void UGameLiftOfflineMenuBase::LoginRequest(FString usr, FString pwd)
 	TSharedPtr<FJsonObject> JsonObject = MakeShareable(new FJsonObject());
 	JsonObject->SetStringField(TEXT("username"), *FString::Printf(TEXT("%s"), *usr));
 	JsonObject->SetStringField(TEXT("password"), *FString::Printf(TEXT("%s"), *pwd));
+
+	UE_LOG(LogGameLift, Warning, TEXT("About to make login request to %s with %s/%s"), 
+		*ApiGatewayEndpoint, *usr, *pwd);
 
 	// stick it into JsonBody
 	FString JsonBody;
@@ -47,12 +50,21 @@ void UGameLiftOfflineMenuBase::OnLoginResponse(FHttpRequestPtr Request, FHttpRes
 {
 	if (bWasSuccessful)
 	{
+		UE_LOG(LogGameLift, Warning, TEXT("Got Successful Login Response"));
 		TSharedPtr<FJsonObject> JsonObject;
 		TSharedRef<TJsonReader<>> Reader = TJsonReaderFactory<>::Create(Response->GetContentAsString());
 		if (FJsonSerializer::Deserialize(Reader, JsonObject))
 		{
 			FString IdToken = JsonObject->GetObjectField("tokens")->GetStringField("IdToken");
 			StartSessionRequest(IdToken);
+		}
+	}
+	else
+	{
+		UE_LOG(LogGameLift, Warning, TEXT("Got Failed Login Response"));
+		if (Response.IsValid())
+		{
+			UE_LOG(LogGameLift, Warning, TEXT("%s"), *Response->GetContentAsString());
 		}
 	}
 
