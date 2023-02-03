@@ -8,6 +8,7 @@
 
 class IFleetTypeSpecificParams;
 
+// This is the GameLift specific specialization
 class FFleeteratorGameLiftStarterEditor : public IFleetManagerModule
 {
 public:
@@ -15,6 +16,8 @@ public:
 	virtual void StartupModule() override;
 	virtual void ShutdownModule() override;
 
+
+	virtual bool VerifySettings() override;
 	virtual TSharedPtr<IFleet> CreateFleet() override;
 
 private:

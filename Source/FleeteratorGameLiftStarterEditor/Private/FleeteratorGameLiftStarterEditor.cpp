@@ -80,6 +80,38 @@ static bool ValidateFleetPrefix(const FString& FleetPrefix)
 	return bFindNext;
 }
 
+static void DisplayPrefixError(const FString& FleetPrefix)
+{
+	static FName NAME_FMErrors("FleetManagerPlugin");
+	FMessageLog SettingsError(NAME_FMErrors);
+	TSharedRef<FTokenizedMessage> Message = SettingsError.Error();
+
+	Message->AddToken(FTextToken::Create(LOCTEXT("InvalidFleetPrefix1", "The Fleet Prefix")));
+	Message->AddToken(FTextToken::Create(FText::FromString(FleetPrefix)));
+	Message->AddToken(FTextToken::Create(LOCTEXT("InvalidFleetPrefix2", "is invalid. Ensure you are using lowercase")));
+	SettingsError.Notify();
+}
+
+static bool ValidateBoto3Path(const FString& Boto3Path)
+{
+	bool bValid = FPaths::DirectoryExists(Boto3Path);
+	return bValid;
+}
+
+static void DisplayBoto3PathError(const FString& Boto3Path)
+{
+	static FName NAME_FMErrors("FleetManagerPlugin");
+	FMessageLog SettingsError(NAME_FMErrors);
+	TSharedRef<FTokenizedMessage> Message = SettingsError.Error();
+
+	Message->AddToken(FTextToken::Create(LOCTEXT("InvalidBoto3Path1", "The BOTO3 Path")));
+	Message->AddToken(FTextToken::Create(FText::FromString(Boto3Path)));
+	Message->AddToken(FTextToken::Create(LOCTEXT("InvalidBoto3Path2", "is invalid. Ensure you have installed BOTO3 and have updated project settings")));
+	Message->AddToken(FTextToken::Create(LOCTEXT("InvalidBoto3Path2", "See https://github.com/spayne/GameLiftStarterPlugin#step-5---modify-your-project-to-support-gamelift")));
+	SettingsError.Notify();
+}
+
+
 
 void FFleeteratorGameLiftStarterEditor::OnPropertyChanged(UObject* ObjectBeingModified, FPropertyChangedEvent& PropertyChangedEvent)
 {
@@ -87,18 +119,19 @@ void FFleeteratorGameLiftStarterEditor::OnPropertyChanged(UObject* ObjectBeingMo
 	{
 		FProperty* PropertyThatChanged = PropertyChangedEvent.Property;
 		static const FString FleetPrefix = TEXT("FleetPrefix");
+		static const FString Boto3Path = TEXT("BOTO3Path");
 		if (PropertyThatChanged != nullptr && PropertyThatChanged->GetName() == FleetPrefix)
 		{
 			if (!ValidateFleetPrefix(Settings->FleetPrefix))
 			{
-				static FName NAME_FMErrors("FleetManagerPlugin");
-				FMessageLog SettingsError(NAME_FMErrors);
-				TSharedRef<FTokenizedMessage> Message = SettingsError.Error();
-
-				Message->AddToken(FTextToken::Create(LOCTEXT("InvalidFleetPrefix1", "The Fleet Prefix")));
-				Message->AddToken(FTextToken::Create(FText::FromString(Settings->FleetPrefix)));
-				Message->AddToken(FTextToken::Create(LOCTEXT("InvalidFleetPrefix2", "is invalid. Ensure you are using lowercase")));
-				SettingsError.Notify();
+				DisplayPrefixError(Settings->FleetPrefix);
+			}
+		}
+		else if (PropertyThatChanged != nullptr && PropertyThatChanged->GetName() == Boto3Path)
+		{
+			if (!ValidateBoto3Path(Settings->BOTO3Path))
+			{
+				DisplayBoto3PathError(Settings->BOTO3Path);
 			}
 		}
 	}
@@ -122,6 +155,27 @@ void FFleeteratorGameLiftStarterEditor::ShutdownModule()
 	UnregisterSettings();
 }
 
+// Verifying the fleet prefix and the boto3path
+// the other settings are checked in the python script
+bool FFleeteratorGameLiftStarterEditor::VerifySettings()
+{
+	const UGameLiftStarterSettings* Settings = GetDefault<UGameLiftStarterSettings>();
+	bool bSettingsValid = true;
+	if (!ValidateFleetPrefix(Settings->FleetPrefix))
+	{
+		DisplayPrefixError(Settings->FleetPrefix);
+		bSettingsValid = false;
+	}
+	else if (!ValidateBoto3Path(Settings->BOTO3Path))
+	{
+		DisplayBoto3PathError(Settings->BOTO3Path);
+		bSettingsValid = false;
+	}
+	return bSettingsValid;
+}
+
+// This will be called by the Module level to spawn a new GUI.
+// the ParamHelper contains the details (e.g Python configuration) required to interface with the particular backend.
 TSharedPtr<IFleet> FFleeteratorGameLiftStarterEditor::CreateFleet()
 {
 	return FFleetFactory::Create(TEXT("GameLiftStarter"), ParamHelper);
