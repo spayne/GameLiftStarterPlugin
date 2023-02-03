@@ -41,7 +41,7 @@ git clone https://github.com/spayne/AWSGameLiftServerSDK GameLiftServerSDK
     * a ProjectNameServer.exe,
     * an Entry Map that Opens 127.0.0.1 on BeginPlay
     * a Server Default map (e.g. Third Person Example Map)
-    * __Note: Epic's instructions have you package and build a standalone NoEditor Client, this isn't necessary - you can do all client side development (including connecting to the AWS servers) with an Editor build.  This is a faster way to work.__
+    * __Note: Epic's instructions have you package and build a standalone NoEditor Client, this isn't necessary - you can do all client side development (including connecting to the AWS servers) with an Editor build using the "Play Standalone" netmode.  This is a faster way to work.__
 
 ## Step 4 - Check dedicated server works
 1. Make sure it works on a single machine
