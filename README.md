@@ -27,6 +27,7 @@ git clone https://github.com/spayne/FleetManagerPlugin.git FleetManager
 git clone https://github.com/spayne/GameLiftStarterPlugin GameLiftStarter
 git clone https://github.com/spayne/AWSGameLiftServerSDK GameLiftServerSDK
 ```
+
 2. Generate Visual Studio project files and then build the Development Editor | Win64 target for your project.  
 3. Open the Platforms menu and confirm that you can now open the **Fleet Manager GUI** from the Platforms menu:
 <p align="center">
@@ -34,12 +35,13 @@ git clone https://github.com/spayne/AWSGameLiftServerSDK GameLiftServerSDK
 </p>
 
 ## Step 3 - Setup dedicated server
-1. Follow the instructions on [Setting Up Dedicated Servers](https://docs.unrealengine.com/4.27/en-US/InteractiveExperiences/Networking/HowTo/DedicatedServers/).  Once you have finished that you will have:
+1. Follow Epic's instructions on [Setting Up Dedicated Servers](https://docs.unrealengine.com/4.27/en-US/InteractiveExperiences/Networking/HowTo/DedicatedServers/).  Read **Note** below. Once you have finished that you will have:
     * the server target,
     * a packaged server build (in the Packaged folder if you used their example)
     * a ProjectNameServer.exe,
     * an Entry Map that Opens 127.0.0.1 on BeginPlay
     * a Server Default map (e.g. Third Person Example Map)
+    * __Note: Epic's instructions have you package and build a standalone NoEditor Client, this isn't necessary - you can do all client side development (including connecting to the AWS servers) with an Editor build.  This is a faster way to work.__
 
 ## Step 4 - Check dedicated server works
 1. Make sure it works on a single machine
