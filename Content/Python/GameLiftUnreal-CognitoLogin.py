@@ -44,5 +44,5 @@ def initiate_auth(username, password):
         return None, "Username or password is incorrect"
     except Exception as e:
         print("Uncaught exception:", e, file=sys.stderr)
-        return None, "Unknown error"
+        return None, "Unknown error" + str(e)
     return resp, None

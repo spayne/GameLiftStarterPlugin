@@ -11,7 +11,7 @@ UGameLiftOfflineMenuBase::UGameLiftOfflineMenuBase(const FObjectInitializer& Obj
 	: Super(ObjectInitializer)
 {
 	Http = &FHttpModule::Get();
-	ApiGatewayEndpoint = FString::Printf(TEXT("https://jt8dl27r6e.execute-api.us-west-2.amazonaws.com/froggy-api-test-stage"));
+	ApiGatewayEndpoint = FString::Printf(TEXT("https://82cao6j0oc.execute-api.us-west-2.amazonaws.com/testfleet-api-test-stage"));
 	LoginURI = FString::Printf(TEXT("/login"));
 	StartSessionURI = FString::Printf(TEXT("/startsession"));
 }
@@ -46,29 +46,69 @@ void UGameLiftOfflineMenuBase::LoginRequest(FString usr, FString pwd)
 
 }
 
-void UGameLiftOfflineMenuBase::OnLoginResponse(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful)
+//
+// For details on the types of responses that can be returned - look at the login-function lamba
+// 
+// The successful response will be 200, status: "success"
+// Otherwise it is a failure
+//
+void UGameLiftOfflineMenuBase::OnLoginResponse(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bRequestWasSuccessful)
 {
-	if (bWasSuccessful)
+	FString LoginError;
+	FString IdToken;
+
+	if (!bRequestWasSuccessful)
 	{
-		UE_LOG(LogGameLift, Warning, TEXT("Got Successful Login Response"));
-		TSharedPtr<FJsonObject> JsonObject;
-		TSharedRef<TJsonReader<>> Reader = TJsonReaderFactory<>::Create(Response->GetContentAsString());
-		if (FJsonSerializer::Deserialize(Reader, JsonObject))
-		{
-			FString IdToken = JsonObject->GetObjectField("tokens")->GetStringField("IdToken");
-			StartSessionRequest(IdToken);
-		}
+		LoginError = TEXT("Got Failed Login - Request could not be made - Check your ApiGatewayEndpoint value");
+	}
+	else if (!Response.IsValid())
+	{
+		LoginError = TEXT("Got Failed Login - Response is not valid");
 	}
 	else
 	{
-		UE_LOG(LogGameLift, Warning, TEXT("Got Failed Login Response"));
+		TSharedPtr<FJsonObject> JsonObject;
+		TSharedRef<TJsonReader<>> Reader = TJsonReaderFactory<>::Create(Response->GetContentAsString());
+		if (!FJsonSerializer::Deserialize(Reader, JsonObject))
+		{
+			LoginError = TEXT("Got Failed Login - Could not deserialize response");
+		}
+		else if (!JsonObject->HasField("status"))
+		{
+			LoginError = TEXT("Got Failed Login - No status field");
+		}
+		else 
+		{
+			FString StatusValue = JsonObject->GetStringField("status");
+			if (StatusValue != "success")
+			{
+				LoginError = TEXT("Got Failed Login - Status is not success");
+			}
+			else if (!JsonObject->HasField("tokens"))
+			{
+				LoginError = TEXT("Got Failed Login - No tokens field");
+			}
+			else
+			{
+				IdToken = JsonObject->GetObjectField("tokens")->GetStringField("IdToken");
+			}
+		}
+	}
+
+	if (LoginError.IsEmpty())
+	{
+		StartSessionRequest(IdToken);
+	}
+	else
+	{
+		UE_LOG(LogGameLift, Warning, TEXT("%s"), *LoginError);
 		if (Response.IsValid())
 		{
 			UE_LOG(LogGameLift, Warning, TEXT("%s"), *Response->GetContentAsString());
 		}
 	}
-
 }
+
 void UGameLiftOfflineMenuBase::StartSessionRequest(FString idt)
 {
 	TSharedRef<IHttpRequest, ESPMode::ThreadSafe> StartSessionHttpRequest = Http->CreateRequest();
