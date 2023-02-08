@@ -69,14 +69,14 @@ git clone https://github.com/spayne/AWSGameLiftServerSDK GameLiftServerSDK
 <img width="200" src="Docs/NewLoginOptions.png?raw=true" alt="New Login Options"/>
 </p>
 
-6. Open the third person map and change the game mode to GameLiftGameMode.  **Remember to save the map***
+6. Open the ThirdPersonMap and select the world Override Options, use "Select GameModeBase Class" to select GameLiftGameMode.  **Remember to save this map***
 <p align="center">
 <img width="250" src="Docs/SetGameModeOfThirdPersonMap.png?raw=true" alt="Set Game Mode of the Third Person map"/>
 </p>
 
 7. Copy the Plugins/GameLiftStarter/Scripts/install.bat file to the Server Package Root.
 
-8. From within the editor, re-package the server package to make sure everything is going to be in sync between what is on your local machine and the server side. (e.g. the modifications to the Third Person Map).
+8. From within the editor, re-package the server package to make sure everything is going to be in sync between what is on your local machine and the server side. (e.g. the modifications to the ThirdPersonMap).
 
 9. Run the Fleet Manager and click on "Check" to check the Dedicated Server is Packaged.  Confirm that the Ready column shows OK:
 <p align="center">
