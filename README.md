@@ -59,21 +59,26 @@ git clone https://github.com/spayne/AWSGameLiftServerSDK GameLiftServerSDK
 <img width="600" src="Docs/EntryMapBeginPlay.png?raw=true" alt="Entry Map Blueprint"/>
 </p>
 
-4. Press the Play button in the Editor and confirm you have Login Options on the bottom right in game:
+4. Compile and Save that map.  Now from the Main Editor, click on the three 'vertical buttons' and confirm you have Num Players: 1 and Play Standalone selected:
+<p align="center">
+<img width="300" src="Docs/OnePlayerStandalone.png?raw=true" alt="New Login Options"/>
+</p>
+
+5. Press the Play button in the Editor and confirm you have Login Options on the bottom right in game:
 <p align="center">
 <img width="200" src="Docs/NewLoginOptions.png?raw=true" alt="New Login Options"/>
 </p>
 
-5. Open the third person map and change the game mode to GameLiftGameMode.  **Remember to save the map***
+6. Open the ThirdPersonMap and select the world Override Options, use "Select GameModeBase Class" to select GameLiftGameMode.  **Remember to save this map***
 <p align="center">
 <img width="250" src="Docs/SetGameModeOfThirdPersonMap.png?raw=true" alt="Set Game Mode of the Third Person map"/>
 </p>
 
-6. Copy the Plugins/GameLiftStarter/Scripts/install.bat file to the Server Package Root.
+7. Copy the Plugins/GameLiftStarter/Scripts/install.bat file to the Server Package Root.
 
-7. From within the editor, re-package the server package to make sure everything is going to be in sync between what is on your local machine and the server side. (e.g. the modifications to the Third Person Map).
+8. From within the editor, re-package the server package to make sure everything is going to be in sync between what is on your local machine and the server side. (e.g. the modifications to the ThirdPersonMap).
 
-8. Run the Fleet Manager and click on "Check" to check the Dedicated Server is Packaged.  Confirm that the Ready column shows OK:
+9. Run the Fleet Manager and click on "Check" to check the Dedicated Server is Packaged.  Confirm that the Ready column shows OK:
 <p align="center">
 <img width="400" src="Docs/ConfirmDedicatedServerisPackaged.png?raw=true" alt="Confirm Dedicated Server is Packaged"/>
 </p>
