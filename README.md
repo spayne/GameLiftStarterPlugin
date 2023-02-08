@@ -71,7 +71,7 @@ git clone https://github.com/spayne/AWSGameLiftServerSDK GameLiftServerSDK
 
 6. Copy the Plugins/GameLiftStarter/Scripts/install.bat file to the Server Package Root.
 
-7. From within the editor, re-package the server package
+7. From within the editor, re-package the server package to make sure everything is going to be in sync between what is on your local machine and the server side. (e.g. the modifications to the Third Person Map).
 
 8. Run the Fleet Manager and click on "Check" to check the Dedicated Server is Packaged.  Confirm that the Ready column shows OK:
 <p align="center">
