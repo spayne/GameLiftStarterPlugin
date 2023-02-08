@@ -29,7 +29,7 @@ git clone https://github.com/spayne/AWSGameLiftServerSDK GameLiftServerSDK
 ```
 
 2. Generate Visual Studio project files and then build the Development Editor | Win64 target for your project.  
-3. Open the Platforms menu and confirm that you can now open the **Fleet Manager GUI** from the Platforms menu:
+3. Open the Platforms menu and confirm that you can now see the **Fleet Manager GUI** from the Platforms menu.  Note that opening the Fleet Manager will generate warnings until you specify project settings for it in Step 5 below.
 <p align="center">
 <img width="400" src="Docs/FleetManagerMenu.png?raw=true" alt="Fleet Manager Menu"/>
 </p>
