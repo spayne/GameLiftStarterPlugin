@@ -1,5 +1,5 @@
 # Game Lift Starter for Unreal Editor
-This plugin makes it easier to to setup and tear down GameLift deployments within Unreal Editor.  It uses the [FleetManagerPlugin](https://github.com/spayne/FleetManagerPlugin).
+This plugin makes it easy to setup and tear down GameLift deployments within Unreal Editor.  It uses the [FleetManagerPlugin](https://github.com/spayne/FleetManagerPlugin).
 
 <p align="center">
 <img width="800" src="Docs/GUI1.png?raw=true" alt="Game Lift Starter"/>
