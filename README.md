@@ -13,9 +13,16 @@ The following will take you from start to finish to building and deploy a UE 5.1
 ## Prerequisites
 1. Starting with a source [build](https://github.com/EpicGames/UnrealEngine) of Unreal engine
 2. Have an AWS account setup and can run the AWS cli using a [Named profile](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-profiles.html)
-    * to check, run: aws gamelift list-fleets --profile [NamedProfileName] --region us-west-2
+    * to confirm, run the following in a windows cmd shell:
+    ```
+      aws configure list-profiles
+      aws gamelift list-fleets --profile [NamedProfileName] --region us-west-2
+    ```
 3. Install [boto3](https://boto3.amazonaws.com/v1/documentation/api/latest/guide/quickstart.html)
-    * to check, run: pip show boto3
+    * to confirm, run the following in a windows cmd shell:
+    ```
+      pip show boto3
+    ```
 
 ## Step 1 - Create a project
 1. Create a new **third person template** C++ project
