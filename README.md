@@ -49,7 +49,7 @@ git clone https://github.com/spayne/AWSGameLiftServerSDK GameLiftServerSDK
     * an Entry Map that Opens 127.0.0.1 on BeginPlay
     * a Server Default map (e.g. Third Person Example Map)
     * Notes:
-      1. Epic's instructions have you package and build a standalone NoEditor Client.  If you prefer you can just use an Editor build instead. ie.
+      1. Epic's instructions:"Step 6. Package the Project again..." have you package and build a standalone NoEditor Client.  If you prefer you can just use an Editor build instead. ie.
          * Tou can do all client side development, including connecting to the servers deployed on AWS, with an Editor build (ake PIE) using the "Play Standalone" netmode with a single client.
          * You can worry about multiple clients and the NoEditor client later.
       2. The link above is to the older 4.27/pre-Lyra era instructions because it's more lightweight.  Let me know if Lyra is a priority to you.  
