@@ -65,7 +65,7 @@ git clone https://github.com/spayne/AWSGameLiftServerSDK GameLiftServerSDK
 <img width="880" src="Docs/ExampleSettings.png?raw=true" alt="Example Settings"/>
 </p>
 
-3. Modify the Entry Map Blueprint to open GameLiftOfflineMainMenu (Use CreateWidget and then choose the GameLiftOfflineMainMenu as the class):
+3. Modify the Entry Map Level Blueprint to open GameLiftOfflineMainMenu (Use CreateWidget and then choose the GameLiftOfflineMainMenu as the class):
 <p align="center">
 <img width="600" src="Docs/EntryMapBeginPlay.png?raw=true" alt="Entry Map Blueprint"/>
 </p>
