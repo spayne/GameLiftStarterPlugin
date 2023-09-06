@@ -95,7 +95,7 @@ git clone https://github.com/spayne/AWSGameLiftServerSDK GameLiftServerSDK
 </p>
 
 ## Step 6 - Deploy and Test It
-1. Click on Upload to upload the Server to GameLift.  This will open a blank window and take a moment (30s-1min) to start uploading.  Eventually you will see a stream of output in both the FleetManager window as well as in the output log showing upload progress.  The window will close and the checkmark for this will go green.
+1. Click on Upload to upload the Server to GameLift.  This will open a blank window and take a moment (30s-1min) to start uploading.  Keep an eye on both the fleet manager window as well as the popup window to see upload progress. Eventually the popup window will close and the checkmark for this will go green.
 
 2. Click on Launch to start the fleet.  This will show fleet status is NEW and the status will *not* turn to a checkmark.  This is expected.  Fleet deployment can take about 30 minutes to continue.
 
