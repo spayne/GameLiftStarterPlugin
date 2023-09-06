@@ -104,7 +104,7 @@ git clone https://github.com/spayne/AWSGameLiftServerSDK GameLiftServerSDK
 <img width="400" src="Docs/WaitingForFleetToBecomeActive.png?raw=true" alt="Waiting For Fleet To Become Active"/>
 </p>
 
-4. Take note of the invoke_url from the Rest API step.  Close the Fleet Manager.  Copy this URL into the APIGatewayEndpoint value in UGameLiftOfflineMenuBase::UGameLiftOfflineMenuBase. (We will figure out a better way to do this later) 
+4. Take note of the invoke_url from the Rest API step.  Close the Fleet Manager.  Copy this URL into the APIGatewayEndpoint value in UGameLiftOfflineMenuBase::UGameLiftOfflineMenuBase in the Plugins/GameLiftStarter/Source/Fleeterator/Private/GameLiftOfflineMenuBase.cpp. We will figure out a better way to do this later. 
 <p align="center">
 <img width="400" src="Docs/CopyInvokeURL.png?raw=true" alt="Copy Invoke URL"/>
 </p>
