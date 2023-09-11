@@ -15,6 +15,10 @@ The following will take you from start to finish to building and deploy a UE 5.1
 2. Have an AWS account setup and can run the AWS cli using a [Named profile](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-profiles.html)
     * to confirm, run the following in a windows cmd shell:
     ```
+      aws --version
+      # should show something like: aws-cli/2.13.17 Python/3.11.5 Windows/10 exe/AMD64 prompt/off
+      # if you want to update, follow https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html
+    
       aws configure list-profiles
       aws gamelift list-fleets --profile [NamedProfileName] --region us-west-2
     ```
@@ -80,7 +84,7 @@ git clone https://github.com/spayne/AWSGameLiftServerSDK GameLiftServerSDK
 <img width="200" src="Docs/NewLoginOptions.png?raw=true" alt="New Login Options"/>
 </p>
 
-6. Open the ThirdPersonMap and select the world Override Options, use "Select GameModeBase Class" to select GameLiftGameMode.  **Remember to save this map***
+6. Open the ThirdPersonMap and select the World Override Options, use "Select GameModeBase Class" to select GameLiftGameMode.  **Remember to save this map***
 <p align="center">
 <img width="250" src="Docs/SetGameModeOfThirdPersonMap.png?raw=true" alt="Set Game Mode of the Third Person map"/>
 </p>
