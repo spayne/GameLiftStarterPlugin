@@ -1328,7 +1328,7 @@ override default example:
         help="a version number")
     parser.add_argument(
         '--server_package_os',
-        default="WINDOWS_2012",
+        default="WINDOWS_2016",
         help="the os to install on the EC2 instances")
     parser.add_argument(
         '--server_package_root',
